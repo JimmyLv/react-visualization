@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import echarts from 'echarts';
+import * as echarts from 'echarts';
 
 function useChart(chartRef, options) {
   let myChart = null;
@@ -24,7 +24,7 @@ function useChart(chartRef, options) {
     };
   }, []);
 
-  return;
+  return [myChart];
 }
 
 export default useChart;
