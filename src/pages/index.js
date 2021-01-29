@@ -4,6 +4,7 @@ import styles from './index.css';
 
 export default function() {
   const chartRef = useRef();
+  //  useChart (chartRef, options)
   let myChart = null;
   const options = {
     title: {
