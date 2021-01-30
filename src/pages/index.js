@@ -4,7 +4,7 @@ import styles from './index.css';
 
 export default function() {
   const chartRef = useRef();
-  //  useChart (chartRef, options)
+  //  useChart(chartRef, options)
   let myChart = null;
   const options = {
     title: {
@@ -22,7 +22,7 @@ export default function() {
     },
     series: [
       {
-        data: [820, 932, 901, 934, 1290, 1330, 1320],
+        data: [1820, 932, 901, 934, 1290, 1330, 1320],
         type: 'line',
       },
     ],

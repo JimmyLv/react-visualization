@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { stocks } from 'stock-api';
 import useChart from '../hooks/useChart';
 import styles from './stock.css';
@@ -23,10 +23,22 @@ export default function() {
     ],
   };
   const [myChart] = useChart(chartRef, options);
+  const [code, setCode] = useState('SH600519');
+
   useEffect(() => {
     // 获取股票实时数据
-    stocks.tencent.getStock('SH600519').then(console.log);
-  });
+    stocks.tencent.getStock(code).then(console.log);
+
+    async function  fetchData(code) {
+      const res = await fetch(`https://qt.gtimg.cn/q=${code.toLowerCase()}`)
+      const data = res.json()
+      myChart.setOption({
+        series: data
+      })
+    }
+
+    // fetchData(code)
+  }, [code]);
 
   return (
     <div className={styles.normal}>
