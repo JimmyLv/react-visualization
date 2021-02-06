@@ -4,120 +4,109 @@ import styles from './index.css';
 
 export default function() {
   const chartRef = useRef();
-  // const options = {
-  {/*  title: {*/}
-  //     text: '测试图表-React-Hook',
-  //   },
-  //   tooltip: {
-  //     trigger: 'axis',
-  //   },
-  //   xAxis: {
-  //     type: 'category',
-  //     data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-  //   },
-  //   yAxis: {
-  //     type: 'value',
-  //   },
-  //   series: [
-  //     {
-  //       data: [1820, 932, 901, 934, 1290, 1330, 1320],
-  //       type: 'line',
-  //     },
-  //   ],
-  // };
   const options = {
     title: {
-      text: '堆叠区域图'
+      text: '动态数据',
+      subtext: '纯属虚构'
     },
     tooltip: {
       trigger: 'axis',
       axisPointer: {
         type: 'cross',
         label: {
-          backgroundColor: '#6a7985'
+          backgroundColor: '#283b56'
         }
       }
     },
     legend: {
-      data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
+      data:['最新成交价', '预购队列']
     },
     toolbox: {
+      show: true,
       feature: {
+        dataView: {readOnly: false},
+        restore: {},
         saveAsImage: {}
       }
     },
-    grid: {
-      left: '3%',
-      right: '4%',
-      bottom: '3%',
-      containLabel: true
+    dataZoom: {
+      show: false,
+      start: 0,
+      end: 100
     },
     xAxis: [
       {
         type: 'category',
-        boundaryGap: false,
-        data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+        boundaryGap: true,
+        data: (function (){
+          var now = new Date();
+          var res = [];
+          var len = 10;
+          while (len--) {
+            res.unshift(now.toLocaleTimeString().replace(/^\D*/,''));
+            now = new Date(now - 2000);
+          }
+          return res;
+        })()
+      },
+      {
+        type: 'category',
+        boundaryGap: true,
+        data: (function (){
+          var res = [];
+          var len = 10;
+          while (len--) {
+            res.push(10 - len - 1);
+          }
+          return res;
+        })()
       }
     ],
     yAxis: [
       {
-        type: 'value'
+        type: 'value',
+        scale: true,
+        name: '价格',
+        max: 30,
+        min: 0,
+        boundaryGap: [0.2, 0.2]
+      },
+      {
+        type: 'value',
+        scale: true,
+        name: '预购量',
+        max: 1200,
+        min: 0,
+        boundaryGap: [0.2, 0.2]
       }
     ],
     series: [
       {
-        name: '邮件营销',
-        type: 'line',
-        stack: '总量',
-        areaStyle: {},
-        emphasis: {
-          focus: 'series'
-        },
-        data: [120, 132, 101, 134, 90, 230, 210]
+        name: '预购队列',
+        type: 'bar',
+        xAxisIndex: 1,
+        yAxisIndex: 1,
+        data: (function (){
+          var res = [];
+          var len = 10;
+          while (len--) {
+            res.push(Math.round(Math.random() * 1000));
+          }
+          return res;
+        })()
       },
       {
-        name: '联盟广告',
+        name: '最新成交价',
         type: 'line',
-        stack: '总量',
-        areaStyle: {},
-        emphasis: {
-          focus: 'series'
-        },
-        data: [220, 182, 191, 234, 290, 330, 310]
-      },
-      {
-        name: '视频广告',
-        type: 'line',
-        stack: '总量',
-        areaStyle: {},
-        emphasis: {
-          focus: 'series'
-        },
-        data: [150, 232, 201, 154, 190, 330, 410]
-      },
-      {
-        name: '直接访问',
-        type: 'line',
-        stack: '总量',
-        areaStyle: {},
-        emphasis: {
-          focus: 'series'
-        },
-        data: [320, 332, 301, 334, 390, 330, 320]
-      },
-      {
-        name: '搜索引擎',
-        type: 'line',
-        stack: '总量',
-        label: {
-          show: true,
-          position: 'top'
-        },
-        areaStyle: {},
-        emphasis: {
-          focus: 'series'
-        },
-        data: [820, 932, 901, 934, 1290, 1330, 1320]
+        data: (function (){
+          var res = [];
+          var len = 0;
+          while (len < 10) {
+            res.push((Math.random()*10 + 5).toFixed(1) - 0);
+            len++;
+          }
+          return res;
+        })()
       }
     ]
   }

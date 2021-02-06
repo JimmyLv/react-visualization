@@ -11,6 +11,14 @@ export default {
           component: './stock',
         },
         {
+          path: '/pie',
+          component: './pie',
+        },
+        {
+          path: '/geo',
+          component: './geo',
+        },
+        {
           path: '/',
           component: '../pages/index',
         },
